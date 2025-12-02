@@ -1,23 +1,15 @@
 import { useState } from "react";
-import Logo from './Logo';
-import Form from './Form';
-import PackingList from './PackingList';
-import Stats from './Stats';
+import Logo from "./Logo";
+import Form from "./Form";
+import PackingList from "./PackingList";
+import Stats from "./Stats";
 
-
-// Initial packing items
 const initialItems = [
   { id: 1, description: "Shirt", quantity: 5, packed: false },
   { id: 2, description: "Pants", quantity: 2, packed: true },
 ];
 
-
-
-
-
-
-
-function App() {
+export default function App() {
   const [items, setItems] = useState(initialItems);
 
   function handleAddItem(item) {
@@ -36,16 +28,27 @@ function App() {
     setItems(items.filter((item) => item.id !== id));
   }
 
+  function handleClearPacked() {
+    setItems(items.filter((item) => !item.packed));
+  }
+
+  function handleEditItem(updatedItem) {
+    setItems(
+      items.map((item) => (item.id === updatedItem.id ? updatedItem : item))
+    );
+  }
+
   return (
     <div className="app">
       <Logo />
-
       <Form onAddItem={handleAddItem} />
 
       <PackingList
         items={items}
         onToggleItem={handleToggleItem}
         onDeleteItem={handleDeleteItem}
+        onClearPacked={handleClearPacked}
+        onEditItem={handleEditItem}
       />
 
       <Stats items={items} />
@@ -53,5 +56,4 @@ function App() {
   );
 }
 
-export default App;
 

@@ -1,4 +1,6 @@
+
 import { useState } from "react";
+
 export default function Form({ onAddItem }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -14,10 +16,7 @@ export default function Form({ onAddItem }) {
       packed: false,
     };
 
-    // send to App
     onAddItem(newItem);
-
-    // reset form
     setDescription("");
     setQuantity(1);
   }
